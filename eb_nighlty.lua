@@ -1,5 +1,6 @@
 warn("running eb nightly build 🌙")
 print("there may be some errors, we reccomend running the normal version if you don't want any bugs or un-finished commits")
+
 --[[
 
     File: eb.lua
@@ -18,14 +19,14 @@ local corescripts = "https://raw.githubusercontent.com/specowos/evolve_backwards
 local modules = "https://raw.githubusercontent.com/specowos/evolve_backwards/main/Modules/"
 loadstring(game:HttpGet("https://raw.githubusercontent.caom/specowos/CONVERTWARE/main/convertware/Other/LoadLibrary%20Backup.lua"))()
 
-function loadoldcore(From, Name)
+function loadoldcore(from, name)
     spawn(function()
         loadstring(game:HttpGet(from..name..".lua"))()
     end)
 end
 
 function deletecore(core)
-    game:GetService("CoreGui"):FindFirstChild(core):Destroy()
+    game:GetService("CoreGui"):WaitForChild(core):Destroy()
 end
 
 deletecore("RobloxLoadingGui")
@@ -34,6 +35,7 @@ loadoldcore(corescripts, "LoadingScript")
 --// wait for load
 if not game:IsLoaded() then game.IsLoaded:Wait() end
 
+--[[
 deletecore("RobloxGui")
 deletecore("TeleportGui")
 deletecore("RobloxPromptGui")
@@ -44,3 +46,4 @@ deletecore("PurchasePrompt")
 deletecore("HeadsetDisconnectedDialog")
 deletecore("ThemeProvider")
 deletecore("BubbleChat")
+]]
