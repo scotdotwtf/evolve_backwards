@@ -251,8 +251,8 @@ function MainGui:GenerateMain()
 		Name = 'BlackFrame',
 		BackgroundColor3 = COLORS.BACKGROUND_COLOR,
 		BackgroundTransparency = 0,
-		Size = UDim2.new(1, 0, 1, 0),
-		Position = UDim2.new(0, 0, 0, 0),
+		Size = UDim2.new(1, 0, 1, 36),
+		Position = UDim2.new(0, 0, 0, -36),
 		Active = true,
 		Parent = screenGui,
 	}
