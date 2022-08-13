@@ -30,4 +30,4 @@ deletecore("RobloxLoadingGui")
 loadoldcore(corescripts, "LoadingScript")
 
 --// wait for load
-if not game:IsLoaded() then game.IsLoaded:Wait() end
+if not game:IsLoaded() then game.Loaded:Wait() end
