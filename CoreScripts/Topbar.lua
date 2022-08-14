@@ -36,7 +36,7 @@ local TextService = game:GetService('TextService')
 
 --[[ MODULES ]]--
 local GuiRoot = CoreGuiService:WaitForChild('RobloxGui')
-local TopbarConstants = require(game:HttpGet("https://raw.githubusercontent.com/specowos/evolve_backwards/main/Modules/TopbarConstants.lua"))
+local TopbarConstants = loadstring(game:HttpGet("https://raw.githubusercontent.com/specowos/evolve_backwards/main/Modules/TopbarConstants.lua"))
 --[[ END OF MODULES ]]
 
 local topbarEnabled = true
