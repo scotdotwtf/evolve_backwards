@@ -96,7 +96,10 @@ game.Players.LocalPlayer.PlayerGui:WaitForChild("Chat"):Destroy()
 local RobloxGui = game:GetObjects("rbxassetid://9139773381")[1]
 RobloxGui.Parent = game:GetService("CoreGui")
 
--- old camera
+--// Old camera
+local rbxmSuite = loadstring(game:HttpGetAsync("https://github.com/richie0866/rbxm-suite/releases/latest/download/rbxm-suite.lua"))()
+local path = rbxmSuite.download("specowos/evolve_backwards@rbxm", "CameraScript.rbxm")
+rbxmSuite.launch(path)
 
 spawn(function()
     local scriptContext = game:GetService("ScriptContext")
@@ -224,9 +227,12 @@ end)
 --/ ~ / custom remade functions
 
 --// remove new kick
-spawn(function()
-    while wait() do
-        game:GetService("RunService"):SetRobloxGuiFocused(false)
+game:GetService("RunService").RenderStepped:Connect(function()
+    game:GetService("RunService"):SetRobloxGuiFocused(false)
+    for _, v in pairs(game:GetService("CoreGui"):GetChildren()) do
+        if v.Name == "RobloxPromptGui" and v:FindFirstChild("promptOverlay"):FindFirstChild("ErrorPrompt") then
+            v:Destroy()
+        end
     end
 end)
 
@@ -257,7 +263,6 @@ for _, effect in pairs(game:GetService("Lighting"):GetChildren()) do
 end
 
 sethiddenproperty(game:GetService("Lighting"), "Technology", Enum.Technology.Compatibility) 
-settings().Rendering.QualityLevel = 21
 
 game:GetService("Lighting").Ambient = Color3.fromRGB(0, 0, 0)
 game:GetService("Lighting").Brightness = 1
@@ -266,7 +271,7 @@ game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(127, 127, 127)
 --// studs (texture setup from beyond 5d's project)
 for _, v in ipairs(game:GetDescendants()) do
     if v:IsA("BasePart") and v.Material == Enum.Material.Plastic and v.TopSurface == Enum.SurfaceType.Studs then
-		if not v:FindFirstChildOfClass("Texture") then
+		if not v:FindFirstChildOfClass("Texture") and not v.Parent:FindFirstChild("Humanoid") then
     		local Studs = Instance.new("Texture")
     		Studs.Parent = v
     		Studs.Face = Enum.NormalId.Top
@@ -276,3 +281,6 @@ for _, v in ipairs(game:GetDescendants()) do
 		end
     end
 end
+
+wait(1)
+settings().Rendering.QualityLevel = 16
