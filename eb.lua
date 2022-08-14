@@ -31,3 +31,10 @@ loadoldcore(corescripts, "LoadingScript")
 
 --// wait for load
 if not game:IsLoaded() then game.Loaded:Wait() end
+
+--// remove new kick
+spawn(function()
+    while wait() do
+        game:GetService("RunService"):SetRobloxGuiFocused(false)
+    end
+end)
