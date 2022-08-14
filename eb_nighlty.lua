@@ -17,7 +17,6 @@ print("there may be some errors, we reccomend running the normal version if you 
 --// vars and funcs
 local corescripts = "https://raw.githubusercontent.com/specowos/evolve_backwards/main/CoreScripts/"
 local modules = "https://raw.githubusercontent.com/specowos/evolve_backwards/main/Modules/"
-loadstring(game:HttpGet("https://raw.githubusercontent.caom/specowos/CONVERTWARE/main/convertware/Other/LoadLibrary%20Backup.lua"))()
 
 function loadoldcore(from, name)
     spawn(function()
@@ -43,24 +42,18 @@ spawn(function()
 end)
 
 --// health bars set to show
-game:GetService("Players").PlayerAdded:Connect(function(Player)
-    spawn(function()
-        if Player ~= nil then
-            if Player.Character == nil then
-                Player.CharacterAdded:Wait()
+local function givebars()
+    for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+        if v.Character ~= nil then
+            if v.Character:FindFirstChild("Humanoid") then
+                sethiddenproperty(v.Character.Humanoid, "HealthDisplayType", Enum.HumanoidHealthDisplayType.AlwaysOn)
             end
-            if Player.Character:FindFirstChild("Humanoid") == nil then
-                Player.Character:WaitForChild("Humanoid")
-            end
-            Player.Character.Humanoid.HealthDisplayType = Enum.HumanoidHealthDisplayType.AlwaysOn
         end
-        Player.CharacterAdded:Connect(function(char)
-            if char:FindFirstChild("Humanoid") == nil then
-                char:WaitForChild("Humanoid")
-            end
-            char.Humanoid.HealthDisplayType = Enum.HumanoidHealthDisplayType.AlwaysOn
-        end)
-    end)
+    end
+end
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    givebars()
 end)
 
 --// setting up graphics to look older
@@ -80,19 +73,7 @@ game:GetService("Lighting").Ambient = Color3.fromRGB(0, 0, 0)
 game:GetService("Lighting").Brightness = 1
 game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(127, 127, 127)
 
---// outlines
-for _, v in ipairs(game:GetDescendants()) do
-    if v:IsA("BasePart") and v.Name ~= "Handle" and not v:FindFirstChildOfClass("SpecialMesh") then
-        local Outlines = Instance.new("SelectionBox")
-        Outlines.Adornee = v
-        Outlines.Parent = v
-        Outlines.Color3 = Color3.fromRGB(0, 0, 0)
-        Outlines.LineThickness = 0.0001
-        Outlines.Transparency = 0.9
-    end
-end
-
---// studs
+--// studs (texture setup from beyond 5d's project)
 for _, v in ipairs(game:GetDescendants()) do
     if v:IsA("BasePart") and v.Material == Enum.Material.Plastic and v.TopSurface == Enum.SurfaceType.Studs then
 		if not v:FindFirstChildOfClass("Texture") then
